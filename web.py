@@ -140,6 +140,17 @@ def decline_tx(tx_id):
     flash(f"Transaction {tx_id} declined.", "success")
     return redirect(url_for('admin_panel'))
 
+@app.route('/get_image/<file_id>')
+def get_image(file_id):
+    import io
+    from flask import send_file
+    try:
+        file_info = bot.get_file(file_id)
+        downloaded_file = bot.download_file(file_info.file_path)
+        return send_file(io.BytesIO(downloaded_file), mimetype='image/jpeg')
+    except Exception as e:
+        return "Image not found", 404
+
 if __name__ == '__main__':
     import os
     port = int(os.environ.get("PORT", 5000))
