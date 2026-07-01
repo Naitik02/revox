@@ -194,12 +194,12 @@ def update_transaction_status(tx_id, status):
             cursor.execute('UPDATE transactions SET status = ? WHERE id = ?', (status, tx_id))
             cursor.execute('SELECT * FROM transactions WHERE id = ?', (tx_id,))
             tx = cursor.fetchone()
+            conn.commit()
             
             if tx and status == 'approved':
                 # Re-use the proper function so it handles new users correctly
                 update_user_balance(tx['user_id'], tx['amount'])
                 
-            conn.commit()
             return dict(tx) if tx else None
 
 # Order Functions
