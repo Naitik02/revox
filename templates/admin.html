@@ -269,6 +269,90 @@
             color: #facc15;
             border: 1px solid rgba(234, 179, 8, 0.2);
         }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+            .nav-items {
+                flex-direction: row;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 5px;
+            }
+            .nav-item {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+            .main-content {
+                padding: 1.5rem 1rem;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                margin-bottom: 2rem;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .product-item {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+            }
+            .product-item > div:last-child {
+                width: 100%;
+                margin-top: 10px;
+                flex-direction: column;
+            }
+            
+            /* Responsive Table */
+            table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+            thead tr { 
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr { border-bottom: 1px solid var(--border-color); margin-bottom: 15px; padding-bottom: 15px; }
+            td { 
+                border: none;
+                position: relative;
+                padding: 10px 10px 10px 45% !important; 
+                text-align: right !important;
+            }
+            td:before { 
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 40%; 
+                padding-right: 10px; 
+                white-space: nowrap;
+                text-align: left;
+                font-weight: 600;
+                color: var(--text-secondary);
+            }
+            td:nth-of-type(1):before { content: "User ID"; }
+            td:nth-of-type(2):before { content: "Username"; }
+            td:nth-of-type(3):before { content: "Balance"; }
+            td:nth-of-type(4):before { content: "Role"; }
+        }
     </style>
 </head>
 <body>
