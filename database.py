@@ -189,16 +189,15 @@ def get_pending_transactions():
 
 def update_transaction_status(tx_id, status):
     with closing(sqlite3.connect(DB_FILE)) as conn:
+        conn.row_factory = sqlite3.Row
         with closing(conn.cursor()) as cursor:
             cursor.execute('UPDATE transactions SET status = ? WHERE id = ?', (status, tx_id))
-            # Get the transaction details to return them
             cursor.execute('SELECT * FROM transactions WHERE id = ?', (tx_id,))
-            conn.row_factory = sqlite3.Row
             tx = cursor.fetchone()
             
             if tx and status == 'approved':
-                # If approved, add to user balance
-                cursor.execute('UPDATE users SET balance = balance + ? WHERE id = ?', (tx['amount'], tx['user_id']))
+                # Re-use the proper function so it handles new users correctly
+                update_user_balance(tx['user_id'], tx['amount'])
                 
             conn.commit()
             return dict(tx) if tx else None
