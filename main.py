@@ -27,7 +27,8 @@ def run_web():
     print(f"==============================================\n")
     
     import tunnel
-    tunnel.launch(port)
+    if not os.environ.get("RENDER"):
+        tunnel.launch(port)
     
     app.run(host="0.0.0.0", port=port, use_reloader=False)
 

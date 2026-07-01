@@ -42,6 +42,10 @@ def get_local_ip():
 LOCAL_IP = get_local_ip()
 
 def get_current_admin_url():
+    render_url = os.environ.get("RENDER_EXTERNAL_URL")
+    if render_url:
+        return render_url + "/"
+        
     if os.path.exists("public_url.txt"):
         with open("public_url.txt", "r") as f:
             url = f.read().strip()
